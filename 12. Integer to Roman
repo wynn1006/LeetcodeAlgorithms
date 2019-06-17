@@ -1,0 +1,14 @@
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function(num) {
+    arrM = ["", "M", "MM", "MMM"];
+    arrC = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"];
+    arrX = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"];
+    arrI = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+    
+    var result = "";
+    result += arrM[Math.floor(num/1000)] + arrC[Math.floor((num%1000)/100)] + arrX[Math.floor((num%100)/10)] + arrI[Math.floor(num%10)];
+    return result;
+};
