@@ -1,0 +1,26 @@
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        Dictionary<char, int> tracker = new Dictionary<char, int>();
+        
+        int i = 0, j = 0;
+        int max = 0;
+        while(j < s.Length){
+            if(!tracker.ContainsKey(s[j])){
+                tracker.Add(s[j], j);
+                j++;
+                max = Math.Max(j - i, max);
+            } else {
+                if(tracker[s[j]] < i) {
+                    tracker[s[j]] = j;
+                    j++;
+                    max = Math.Max(j - i, max);
+                } else {
+                    i = tracker[s[j]] + 1;
+                    tracker[s[j]] = j;
+                    j++;    
+                }      
+            }
+        }
+        return max;
+    }
+}
