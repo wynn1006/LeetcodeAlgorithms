@@ -1,0 +1,37 @@
+public class Solution {
+    public double FindMedianSortedArrays(int[] nums1, int[] nums2) {
+        
+        if(nums1.Length > nums2.Length) return FindMedianSortedArrays(nums2, nums1);
+        int x = nums1.Length;
+        int y = nums2.Length;
+        
+        int l = 0, r = x;
+        
+        while(l <= r){
+            int px = (l + r) / 2;
+            int py = (x + y + 1) / 2 - px;
+            
+            int maxlx = px == 0 ? int.MinValue : nums1[px - 1];
+            int minrx = px  == x ? int.MaxValue : nums1[px];
+            
+            int maxly = py == 0 ? int.MinValue : nums2[py - 1];
+            int minry = py  == y ? int.MaxValue : nums2[py];
+            
+            if(maxlx <= minry && minrx >= maxly) {
+                if((x + y) % 2 == 0) return (Math.Max(maxlx, maxly) + Math.Min(minrx, minry)) / 2.0;
+                else return Math.Max(maxlx, maxly);
+            }
+            if(maxlx > minry) {
+                r = px - 1;
+                continue;
+            }
+            if(minrx < maxly){
+                l = px + 1;
+                continue;
+            }
+        }
+        
+        
+        return 0.0;
+    }
+}
