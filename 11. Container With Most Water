@@ -1,0 +1,15 @@
+public class Solution {
+    public int MaxArea(int[] height) {
+        return Find(0, 0, height.Length - 1, height);
+    }
+    
+    int Find(int water, int l, int r, int[] height){
+        if(l == r) return water;
+        
+        water = Math.Max(water, (r - l) * Math.Min(height[l], height[r]));
+        if(height[l] <= height[r]) l++;
+        else r--;
+      
+        return Find(water, l, r, height);
+    }
+}
