@@ -1,0 +1,29 @@
+public class Solution {
+    public IList<string> GenerateParenthesis(int n) {
+        IList<string> result = new List<string>();
+        DFS("", 0, 0, n, result);
+        return result;
+    }
+    void DFS(string cStr, int open, int close, int n, IList<string> result){
+        if(cStr.Length == n * 2) {
+            if(!isParaentheses(cStr)) return;
+            result.Add(cStr);
+            return;
+        }    
+        
+        if(open < n) DFS(cStr + '(', open + 1, close, n, result);
+        if(close < n) DFS(cStr + ')', open, close + 1, n, result);
+    }
+    
+    
+    bool isParaentheses(string str){
+        int count = 0;
+        for(int i = 0 ; i < str.Length ; i++){
+            if(str[i] == '(') count ++;
+            if(str[i] == ')') count --;
+            if(count < 0) return false;
+        }
+        if(count == 0) return true;
+        else return false;
+    }
+}
