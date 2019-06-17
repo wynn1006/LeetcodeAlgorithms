@@ -1,0 +1,20 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int len = nums.length;
+        for(int i = 0 ; i < len ; i++){
+            if(nums[i] == val) {
+                len --;
+                shiftLeft(nums, i);
+                i--;
+            }    
+        }
+        return len;
+    }
+    
+    
+    private void shiftLeft(int[] nums, int idx){
+        for(int i = idx ; i < nums.length - 1 ; i++){
+            nums[i] = nums[i + 1];
+        }
+    }
+}
