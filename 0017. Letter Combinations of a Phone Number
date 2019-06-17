@@ -1,0 +1,36 @@
+public class Solution {
+    public IList<string> LetterCombinations(string digits) {
+        
+        List<List<char>> dial = new List<List<char>>();
+        dial.Add(new List<char>(){}); //0
+        dial.Add(new List<char>(){' '}); //1
+        dial.Add(new List<char>(){'a','b','c'}); //2
+        dial.Add(new List<char>(){'d','e','f'}); //3
+        dial.Add(new List<char>(){'g','h','i'});
+        dial.Add(new List<char>(){'j','k','l'});
+        dial.Add(new List<char>(){'m','n','o'});
+        dial.Add(new List<char>(){'p','q','r','s'});
+        dial.Add(new List<char>(){'t','u','v'});
+        dial.Add(new List<char>(){'w','x','y','z'});
+        
+        string cur = "";
+        List<string> result = new List<string>();    
+        dfs(digits, dial, 0, cur, result);
+        return result;
+    }
+    
+    public void dfs(string digits, List<List<char>> dial, int l, string cur, List<string> result){
+        if(l == digits.Length) {
+            if(l == 0) return;
+            else result.Add(cur);
+            return;
+        }
+        
+        
+        for(int i = 0 ; i < dial[(int)Char.GetNumericValue(digits[l])].Count ; i++){
+            dfs(digits, dial, l+1, cur + dial[(int)Char.GetNumericValue(digits[l])][i], result);
+           
+        }        
+        
+    }
+}
