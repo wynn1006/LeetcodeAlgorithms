@@ -1,0 +1,24 @@
+public class Solution {
+    public int Reverse(int x) {
+        
+        char[] tmp = x > 0 ? x.ToString().ToCharArray() : (-1*x).ToString().ToCharArray();
+        
+        if(tmp.Length <= 1 ) return x;
+        int l = 0;
+        int r = tmp.Length - 1;
+        
+        while( r > l){
+            //swap
+            char tmpChar = tmp[r];
+            tmp[r--] = tmp[l];
+            tmp[l++] = tmpChar;
+        }
+        string result = "";
+        for(int i = 0 ; i < tmp.Length ; i++ ) result += tmp[i];
+        int number;
+        if(!Int32.TryParse(result , out number)) return 0;
+        else return x > 0 ? Int32.Parse(result) : -1 * Int32.Parse(result) ;
+        
+        
+    }
+}
