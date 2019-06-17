@@ -1,0 +1,34 @@
+public class Solution {
+    public string Convert(string s, int numRows) {
+        
+        if(numRows == 1) return s;
+        
+        StringBuilder res = new StringBuilder();
+        for(int i = numRows - 1 ; i >= 0 ; i --){
+            int idx = numRows - 1 - i;
+            if(i == 0 || i == numRows - 1){
+               while(idx < s.Length){
+                   res.Append(s[idx]);
+                   idx += ((numRows - 1) * 2);
+               }
+            } else {
+                int spaceF = i * 2;
+                int spaceB = (numRows - 1) * 2 - spaceF;
+                
+                while(idx < s.Length){
+                    res.Append(s[idx]);
+                    if(idx + spaceF < s.Length) res.Append(s[idx + spaceF]);
+                    idx += spaceF + spaceB;
+                }
+                
+                
+            }
+            
+            
+        }
+        
+        
+        return res.ToString();
+    }
+    
+}
