@@ -1,0 +1,11 @@
+public class Solution {
+    public int RemoveDuplicates(int[] nums) {
+        int result = nums.Length;
+        int pointer = 1;
+        for(int i = 0 ; i < nums.Length - 1 ; i++ ){
+            if(nums[i] != nums[i+1]) nums[pointer++] = nums[i+1];
+            else result--;
+        }
+        return result;
+    }
+}
