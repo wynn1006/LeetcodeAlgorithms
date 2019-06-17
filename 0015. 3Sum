@@ -1,0 +1,51 @@
+public class Solution {
+    public IList<IList<int>> ThreeSum(int[] nums) {
+        List<IList<int>> result = new List<IList<int>>();
+        Array.Sort(nums);
+        
+        int index = 0;
+        int target = 0;
+        while(index <= nums.Length - 3){
+            int subTarget = target - nums[index];
+            TwoSum (nums, subTarget, index, result);
+            index = moveLeft(nums, index, nums.Length - 1);
+            
+        }
+        return result;
+    
+    }
+    
+    public void TwoSum(int[] nums, int target, int index, List<IList<int>> result) {
+       
+        
+        int left = index + 1;
+        int right = nums.Length - 1;
+        while(left < right){
+            int sum = nums[left] + nums[right];
+            if(sum == target) {
+                result.Add(new List<int>(){ nums[index], nums[left], nums[right] });
+                left = moveLeft(nums, left, right);
+            } else if(sum < target) left = moveLeft(nums, left, right);
+            else if(sum > target) right = moveRight(nums, left, right);
+        }
+       
+    }
+    private int moveLeft(int[] array, int left, int right){
+        left ++;
+        while(left < right && array[left - 1] == array[left]) {
+            left ++;
+        }
+        return left;   
+    }
+    
+    private int moveRight(int[] array, int left, int right){
+        right --;
+        while(left < right && array[right + 1] == array[right]) {
+            right --;
+        }
+        return right;   
+    }
+    
+    
+    
+}
