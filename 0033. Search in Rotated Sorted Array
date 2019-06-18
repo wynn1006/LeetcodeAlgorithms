@@ -1,0 +1,26 @@
+public class Solution {
+    public int Search(int[] nums, int target) {
+        int low = 0, high = nums.Length - 1;
+        int mid;
+        while(low < high){
+            mid = (low + high) / 2;
+            if(nums[mid] > nums[high]) low = mid + 1;
+            else high = mid;
+        }
+        
+        int i = high;
+        
+        low = 0;
+        high = nums.Length - 1;
+        int tmpMid = 0;
+        while(low <= high){
+            mid = (low + high) / 2;
+            tmpMid = (mid + i) % nums.Length;
+            if(nums[tmpMid] < target) low = mid + 1;
+            else if(nums[tmpMid] > target) high = mid - 1;
+            else return tmpMid;
+        }
+        
+        return -1;
+    }
+}
