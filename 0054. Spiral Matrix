@@ -1,0 +1,52 @@
+public class Solution {
+    public IList<int> SpiralOrder(int[][] matrix) {
+        
+        IList<int> res = new List<int>();
+        
+        Travel(matrix, 0, 0, 0, res);
+        return res;
+        
+    }
+    
+    private void Travel(int[][] matrix, int x, int y, int dir, IList<int> res){
+        res.Add(matrix[y][x]);
+        matrix[y][x] = 0;
+        int i = 0;
+        while(true){
+            if(dir == 0){
+                if(x + 1 < matrix[0].Length && matrix[y][x + 1] == 0) dir = dir % 4;
+                if(x + 1 >= matrix[0].Length) dir = dir % 4;
+            } else if (dir == 1){
+                if(y + 1 < matrix.Length && matrix[y + 1][x] == 0) dir = dir % 4;
+                if(y + 1 >= matrix.Length) dir = dir % 4;
+            } else if(dir == 2){
+                if(x - 1 >= 0 && matrix[y][x - 1] == 0) dir = dir % 4;
+                if(x - 1 < 0) dir = dir % 4;
+            } else if(dir == 3){
+                if(y - 1 >= 0 && matrix[y - 1][x] == 0) dir = dir % 4;
+                if(y - 1 < 0) dir = dir % 4;
+            }
+            i++;
+            if(i == 4) {
+                res.Add(matrix[y][x]);
+                return;
+            }
+        }
+        
+        if(dir == 0) Travel(matrix, x + 1, y, dir, res);
+        if(dir == 1) Travel(matrix, x, y + 1, dir, res);
+        if(dir == 2) Travel(matrix, x - 1, y, dir, res);
+        if(dir == 3) Travel(matrix, x, y - 1, dir, res);
+    }
+    
+     private bool HaveNextStep(int[][] matrix, int x, int y){
+        bool res = false;
+        if((x + 1 < matrix[0].Length && matrix[y][x + 1] != 0) || (x - 1 >= 0 && matrix[y][x - 1] != 0)) res = true;
+        if((y + 1 < matrix.Length && matrix[y + 1][x] != 0) || (y - 1 >= 0 && matrix[y - 1][x] != 0)) res = true;
+        
+        return res;
+    }
+}
+
+
+   
