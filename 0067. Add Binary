@@ -1,0 +1,31 @@
+public class Solution {
+    public string AddBinary(string a, string b) {
+        int pointerA = a.Length - 1;
+        int pointerB = b.Length - 1;
+        string result = "";
+        int carry = 0;
+        while(pointerA >= 0 || pointerB >= 0 ){
+            int tmp = 0;
+            if(pointerA >= 0 ) tmp += (int)Char.GetNumericValue( a[pointerA] );
+            if(pointerB >= 0 ) tmp += (int)Char.GetNumericValue( b[pointerB] );
+            tmp += carry;
+            if( tmp >= 2 ) {
+                carry = 1;
+                tmp -= 2;
+            } else carry = 0;
+            
+            if( tmp == 0 ) {
+                result = "0" + result;
+            }
+            else if( tmp == 1) {
+                result = "1" + result;
+            }
+            
+            pointerA --;
+            pointerB --;
+        }
+        if(carry != 0) result = "1" + result;
+        return result;
+        
+    }
+}
