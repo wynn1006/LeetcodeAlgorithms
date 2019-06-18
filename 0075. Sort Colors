@@ -1,0 +1,21 @@
+public class Solution {
+    public void SortColors(int[] nums) {
+        quickSort(0, nums.Length - 1, nums);
+    }
+    
+    void quickSort(int l, int h, int[] nums){
+        if(l > h) return;
+        int p = l, q = h, x = nums[l];
+        
+        
+        while(p < q){
+            while(p < q && nums[q] >= x) q--;
+            if(p < q) nums[p] = nums[q];
+            while(p < q && x >= nums[p]) p++;
+            if(p < q) nums[q] = nums[p];
+        }
+        nums[p] = x;
+        quickSort(l, p - 1, nums);
+        quickSort(p + 1, h, nums);
+    }
+}
