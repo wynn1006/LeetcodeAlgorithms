@@ -1,0 +1,30 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        if(intervals.length == 0) return new int[][]{newInterval};
+        boolean isAdded = false;
+        int x = newInterval[0];
+        int y = newInterval[1];
+        ArrayList<int[]> res = new ArrayList<int[]>();
+        
+        for(int i = 0 ; i < intervals.length ; i++){
+            if((x > intervals[i][1] && y > intervals[i][1]) || (x < intervals[i][0] && y < intervals[i][0])) {
+                if((x < intervals[i][0] && y < intervals[i][0]) && !isAdded) {
+                    res.add(newInterval);
+                    isAdded = true;
+                }
+                res.add(intervals[i]);
+                continue;
+            }
+            newInterval = Merge(intervals[i], newInterval);
+            x = newInterval[0];
+            y = newInterval[1];
+        }    
+        
+        if(!isAdded) res.add(newInterval);
+        return res.toArray(new int[res.size()][]);
+    }
+    
+    private int[] Merge(int[] arr1, int[] arr2){
+        return new int[]{Math.min(arr1[0], arr2[0]), Math.max(arr1[1], arr2[1])};
+    }
+}
