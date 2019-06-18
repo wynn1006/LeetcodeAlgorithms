@@ -1,0 +1,30 @@
+class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> resList = new ArrayList<List<Integer>>();
+        Arrays.sort(candidates);
+        dfs(candidates, 0, target, new ArrayList<Integer>(), resList);
+        return resList;
+    }
+    
+    private void dfs(int[] candidates, int idx, int target, List<Integer> cList, List<List<Integer>> resList){
+        if(target == 0){
+            resList.add(new ArrayList<Integer>(cList));
+            return;
+        }
+        if(target < 0) return;
+        
+        
+        for(int i = idx ; i < candidates.length ; i++){
+            cList.add(candidates[i]);
+            dfs(candidates, i + 1, target - candidates[i], cList, resList);
+            i = GetNext(i, candidates);
+            cList.remove(cList.size() - 1);
+        } 
+    }
+    private int GetNext(int idx, int[] candidates){
+        for(int i = idx ; i < candidates.length - 1 ; i++){
+            if(candidates[i] != candidates[i + 1]) return i;
+        }
+        return candidates.length - 1;
+    }
+}
