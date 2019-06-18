@@ -1,0 +1,27 @@
+public class Solution {
+    public void SetZeroes(int[][] matrix) {
+        int[,] tmpMatrix = new int[matrix.Length, matrix[0].Length];
+        
+        for(int i = 0 ; i < matrix.Length ; i++){
+            for(int j = 0 ; j < matrix[0].Length ; j++){
+                tmpMatrix[i,j] = matrix[i][j];
+            }
+        }
+        
+        
+        for(int i = 0 ; i < matrix.Length ; i++){
+            for(int j = 0 ; j < matrix[0].Length ; j++){
+                if(matrix[i][j] == 0){
+                    for(int k = 0 ; k < matrix[0].Length ; k++) tmpMatrix[i,k] = 0;
+                    for(int k = 0 ; k < matrix.Length ; k++) tmpMatrix[k,j] = 0;
+                }    
+            }
+        }
+        
+        for(int i = 0 ; i < matrix.Length ; i++){
+            for(int j = 0 ; j < matrix[0].Length ; j++){
+                matrix[i][j] = tmpMatrix[i,j];
+            }
+        }
+    }
+}
