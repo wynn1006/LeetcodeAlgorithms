@@ -1,0 +1,18 @@
+public class Solution {
+    public string CountAndSay(int n) {
+        
+        if(n == 1) return "1";
+        
+        string lower = CountAndSay(n-1);
+        string result = "";
+        int left = 0; int right = 0;
+        while(right < lower.Length){
+            right++;
+            if(right == lower.Length || lower[left] != lower[right] ){
+                result += (right - left).ToString() + lower[left].ToString();
+                left = right;
+            }     
+        }
+        return result;
+    }
+}
