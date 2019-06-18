@@ -1,0 +1,28 @@
+public class Solution {
+    public IList<IList<int>> Permute(int[] nums) {
+        IList<IList<int>> result = new List<IList<int>>();
+        
+        dfs(result, nums, new Dictionary<int,bool>(), 0, new List<int>());
+        return result;
+    }
+    
+    
+    void dfs(IList<IList<int>> result, int[] nums, Dictionary<int, bool> map, int d, List<int> cList){
+        if(d == nums.Length) {
+            result.Add(cList);
+            return;
+        }
+        
+        for(int i = 0 ; i < nums.Length ; i++){
+            if(map.ContainsKey(nums[i])) continue;
+            map.Add(nums[i], true);
+            cList.Add(nums[i]);
+            dfs(result, nums, map, d + 1, new List<int>(cList));
+            cList.RemoveAt(cList.Count - 1);
+            map.Remove(nums[i]);
+            
+            
+        }
+        
+    }
+}
