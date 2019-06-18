@@ -1,0 +1,26 @@
+public class Solution {
+    public IList<IList<int>> PermuteUnique(int[] nums) {
+        
+        IList<IList<int>> result = new List<IList<int>>();
+        Array.Sort(nums);
+        dfs(result, nums, 0, new List<int>(), new Dictionary<int, bool>());
+        return result;
+    }
+    
+    void dfs(IList<IList<int>> result, int[] nums, int d, List<int> cList, Dictionary<int, bool> map){
+        if(d == nums.Length) {
+            result.Add(new List<int>(cList));
+            return;
+        }
+        for(int i = 0 ; i < nums.Length ; i++){
+            if(!map.ContainsKey(i)){
+                map.Add(i, true);
+                cList.Add(nums[i]);    
+                dfs(result, nums, d + 1, cList, map);
+                map.Remove(i);
+                cList.RemoveAt(cList.Count - 1);
+                while(i + 1 < nums.Length && nums[i] == nums[i+1]) i++;
+            }
+        } 
+    }
+}
