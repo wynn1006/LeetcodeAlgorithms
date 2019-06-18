@@ -1,0 +1,28 @@
+class Solution {
+    int[] dx = {1, 0, -1, 0};
+    int[] dy = {0, 1, 0, -1};
+    
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        Travel(res, 0, 0, 0, 1);
+        return res;
+    }
+    
+    private void Travel(int[][] res, int cx, int cy, int dir, int num){
+        res[cy][cx] = num;
+        int cnt = 0;
+        while(!CheckNext(res, cx + dx[dir], cy + dy[dir])) {
+            dir = (dir + 1) % 4;
+            cnt ++;
+            if(cnt == 4) return;
+        }
+        
+        Travel(res, cx + dx[dir], cy + dy[dir], dir, num + 1);
+    }
+    private boolean CheckNext(int[][] res, int cx, int cy) {
+        if(cx < 0 || cx >= res[0].length) return false;
+        if(cy < 0 || cy >= res.length) return false;
+        if(res[cy][cx] != 0) return false;
+        return true;
+    }
+}
