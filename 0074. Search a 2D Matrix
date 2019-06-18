@@ -1,0 +1,19 @@
+public class Solution {
+    public bool SearchMatrix(int[][] matrix, int target) {
+        if(matrix.Length == 0 || matrix[0].Length == 0) return false;
+
+        int j = 0;
+        int i = 0;
+        while(i < matrix[0].Length){
+            if(matrix[j][i] == target) return true;
+            if(j + 1 < matrix.Length && matrix[j+1][i] <= target) {
+                j++;
+                continue;
+            }
+            
+            i++;
+        }
+        
+        return false;
+    }
+}
