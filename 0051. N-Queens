@@ -1,0 +1,54 @@
+class Solution {
+    
+    private char[][] board;
+    private boolean[] cols; // idx = x
+    private boolean[] diaL; // idx = x + y
+    private boolean[] diaR; // idx = x - y + n - 1
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        board = new char[n][n];
+        for(int y = 0 ; y < n ; y++){
+            Arrays.fill(board[y], '.');
+        }
+        cols = new boolean[n];
+        diaL = new boolean[2 * n - 1];
+        diaR = new boolean[2 * n - 1];
+        
+        NQueen(n, 0, res);
+        
+        return res;
+    }
+    
+    private void NQueen(int n, int y, List<List<String>> res){
+        if(y == n){
+            updateAnswer(res, n);
+            return;
+        }
+        for(int x = 0 ; x < n ; x++){
+            if(!isAvailable(x, y, n)) continue;
+            updateBoard(x, y, n, true);
+            NQueen(n, y + 1, res);
+            updateBoard(x, y, n, false);
+        }
+    }
+    
+    private boolean isAvailable(int x, int y, int n){
+        return !cols[x] && !diaL[x + y] && !diaR[x - y + n - 1 ];
+    }
+    
+    private void updateBoard(int x, int y, int n, boolean isPut){
+        cols[x] = isPut;
+        diaL[x + y] = isPut;
+        diaR[x - y + n - 1] = isPut;
+        board[y][x] = isPut ? 'Q' : '.';
+    }
+    
+    private void updateAnswer(List<List<String>> res, int n){
+        res.add(0, new ArrayList<String>());
+        String str1 = new String(board[0]);
+        for(int y = 0 ; y < n ; y++){
+            String str = new String(board[y]);
+            res.get(0).add(str);
+        }
+    }
+}
