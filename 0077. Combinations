@@ -1,0 +1,29 @@
+public class Solution {
+    public IList<IList<int>> Combine(int n, int k) {
+    
+        IList<IList<int>> result = new List<IList<int>>();
+        
+        
+        dfs(1, 0, n, k, new List<int>(), result);
+        
+        return result;
+        
+    }
+    
+    void dfs(int l, int d, int n, int k, List<int> curList, IList<IList<int>> result){
+        if(d == k) {
+            result.Add(new List<int>(curList));
+            return;
+        }
+        
+        
+        for(int i = l ; i <= n ; i++){
+            curList.Add(i);
+            dfs(i + 1, d + 1, n, k, curList, result);
+            curList.RemoveAt(curList.Count -1);
+        }
+        
+    }
+    
+    
+}
