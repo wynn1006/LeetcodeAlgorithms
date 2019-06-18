@@ -1,0 +1,57 @@
+public class Solution {
+    public string GetPermutation(int n, int k) {
+        int l = n - 1;
+        int mul = 1;
+        for(int i = 1 ; i < n ; i++) mul *= i;
+    
+        HashSet<int> map = new HashSet<int>();
+        int quo = 0;
+        int reman = 0;
+        
+        string ret = "";
+        while(l > 0 && mul > 0){
+            
+            quo = k / mul;
+            reman = k % mul;
+            
+            if(reman == 0){
+                quo --;
+                reman = mul;
+            }
+            
+            int num = GetNumber(map, quo + 1, n); 
+            map.Add(num);
+            ret += num;
+            
+            mul /= l;
+            k = reman;
+            l--;
+        }
+        if(reman != 0){
+            int tmp = GetNumber(map, reman, n);
+            ret += tmp;
+            map.Add(tmp);
+        }
+        for(int i = 1 ; i <= n ; i++) {
+            if(!map.Contains(i)) ret += i;
+        }
+        
+        return ret;
+    }
+    
+    
+    private int GetNumber(HashSet<int> map, int idx, int n){
+        int cnt = 0;
+        for(int i = 1 ; i <= n ; i++){
+            if(!map.Contains(i)){
+                cnt++;
+                if(cnt == idx) return i;
+            }
+        }
+        
+        
+        return idx;
+    }
+    
+   
+}
