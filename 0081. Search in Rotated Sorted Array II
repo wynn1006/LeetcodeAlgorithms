@@ -1,0 +1,26 @@
+public class Solution {
+    public bool Search(int[] nums, int target) {
+        int l = 0, h = nums.Length - 1;
+        int m;
+        while(l < h){
+            while(l < h && nums[l] == nums[h]) l++;
+            m = (l + h) / 2;
+            if(nums[m] > nums[h]) l = m + 1;
+            else h = m;
+        }
+        
+        int i = l;        
+        l = 0;
+        h = nums.Length - 1;
+        int tm;
+        while(l <= h){
+            m = (l + h) / 2;
+            tm = (m + i) % nums.Length;
+            if(nums[tm] == target) return true;
+            else if(nums[tm] > target) h = m - 1;
+            else l = m + 1;
+        }
+        
+        return false;
+    }
+}
