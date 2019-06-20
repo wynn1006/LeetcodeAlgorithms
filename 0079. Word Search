@@ -1,0 +1,30 @@
+public class Solution {
+    int[] dir = new int[5]{1, 0, -1, 0, 1};
+    public bool Exist(char[][] board, string word) {
+        if(word.Length == 0) return true;
+        if(board.Length == 0 || board[0].Length == 0) return false;
+        
+        bool[,] visited = new bool[board.Length, board[0].Length];
+        for(int y = 0 ; y < board.Length ; y++){
+            for(int x = 0 ; x < board[0].Length ; x++){
+                if(DFS(board, visited, word, 0, y, x)) return true;    
+            }
+        }
+        return false;
+    }
+    
+    bool DFS(char[][] board, bool[,] visited, string word, int index, int y, int x){
+        if(y < 0 || y > board.Length - 1) return false;
+        if(x < 0 || x > board[0].Length - 1) return false;
+        if(visited[y,x]) return false;
+        if(word[index] != board[y][x]) return false;
+        if(index == word.Length - 1) return true;
+        visited[y,x] = true;
+        for(int i = 0 ; i < 4 ; i++){
+            if(DFS(board, visited, word, index + 1, y + dir[i], x + dir[i+1])) return true;    
+        }
+        visited[y,x] = false;
+        return false;
+    }
+    
+}
