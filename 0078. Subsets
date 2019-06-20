@@ -1,0 +1,23 @@
+public class Solution {
+    public IList<IList<int>> Subsets(int[] nums) {
+        IList<IList<int>> result = new List<IList<int>>();
+        
+        result.Add(new List<int>());
+        dfs(result, nums, 0, new List<int>());
+        return result;
+    }
+    
+    
+    void dfs(IList<IList<int>> result, int[] nums, int l, List<int> curList){
+       
+        for(int i = l ; i < nums.Length ; i++){
+            
+            curList.Add(nums[i]);
+            List<int> newList = new List<int>(curList);
+            result.Add(newList);
+            dfs(result, nums, i + 1, new List<int>(newList));
+            curList.RemoveAt(newList.Count - 1);
+            
+        }
+    }
+}
