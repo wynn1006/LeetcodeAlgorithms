@@ -1,0 +1,28 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int i = 0, j = 0;
+        int len = nums.length;
+        while(j < len - 1){
+            j++;
+            if(nums[i] == nums[j]) {
+                if(j - i >= 2) {
+                    ShiftLeft(nums, j);
+                    len--;
+                    j--;
+                }
+                continue;
+            }
+            if(nums[i] != nums[j]){
+                i = j;
+                continue;
+            }
+        }
+        return len;
+    }
+    
+    private void ShiftLeft(int[] nums, int idx){
+        for(int i = idx ; i < nums.length - 1 ; i++){
+            nums[i] = nums[i + 1];
+        }
+    }
+}
